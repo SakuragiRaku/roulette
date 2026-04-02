@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ルーレット</title>
+    <meta name="description" content="カスタム項目でルーレットを回そう！紙吹雪、花火など豪華な演出付き。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app" id="app">
+        <header class="header">
+            <div class="header-left">
+                <span class="logo">🎰</span>
+                <h1 class="app-title">ルーレット</h1>
+            </div>
+            <div class="header-right">
+                <button class="icon-btn" id="btn-history" title="履歴">📜</button>
+                <button class="icon-btn" id="btn-settings" title="設定">⚙️</button>
+                <button class="icon-btn" id="btn-theme" title="テーマ切替">🌙</button>
+            </div>
+        </header>
+
+        <main class="main">
+            <!-- ルーレット -->
+            <div class="roulette-container">
+                <div class="pointer" id="pointer">▼</div>
+                <canvas id="wheel" width="360" height="360"></canvas>
+                <button class="spin-btn" id="btn-spin">SPIN!</button>
+            </div>
+
+            <!-- 項目編集 -->
+            <div class="items-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">項目</h2>
+                    <button class="preset-btn" id="btn-presets">📋 プリセット</button>
+                </div>
+                <div class="item-input-row">
+                    <input type="text" class="item-input" id="item-input" placeholder="項目名を入力..." maxlength="30">
+                    <button class="add-btn" id="btn-add">＋</button>
+                </div>
+                <ul class="item-list" id="item-list"></ul>
+            </div>
+        </main>
+
+        <!-- 結果オーバーレイ -->
+        <div class="result-overlay" id="result-overlay">
+            <canvas id="effect-canvas"></canvas>
+            <div class="result-content" id="result-content">
+                <div class="result-label">当選！</div>
+                <div class="result-text" id="result-text"></div>
+                <div class="result-actions">
+                    <button class="result-btn primary" id="btn-respin">🔄 もう一度</button>
+                    <button class="result-btn" id="btn-respin-exclude">🚫 除外して回す</button>
+                    <button class="result-btn" id="btn-close-result">✕ 閉じる</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 設定モーダル -->
+        <div class="modal" id="modal-settings">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>設定</h3>
+                    <button class="modal-close" data-close="modal-settings">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label>演出エフェクト</label>
+                        <div class="effect-options" id="effect-options">
+                            <button class="effect-opt active" data-effect="confetti">🎊 紙吹雪</button>
+                            <button class="effect-opt" data-effect="firework">🎆 花火</button>
+                            <button class="effect-opt" data-effect="explosion">💥 爆発</button>
+                            <button class="effect-opt" data-effect="spotlight">🔦 スポットライト</button>
+                            <button class="effect-opt" data-effect="simple">✨ シンプル</button>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <label>効果音</label>
+                        <div class="setting-row">
+                            <span>効果音ON/OFF</span>
+                            <input type="checkbox" id="sound-enabled" checked>
+                        </div>
+                        <div class="setting-row">
+                            <span>音量</span>
+                            <input type="range" id="sound-volume" min="0" max="1" step="0.1" value="0.5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- プリセットモーダル -->
+        <div class="modal" id="modal-presets">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>プリセット</h3>
+                    <button class="modal-close" data-close="modal-presets">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="preset-list" id="preset-list">
+                        <button class="preset-item" data-preset="numbers">🔢 番号 (1〜10)</button>
+                        <button class="preset-item" data-preset="punishment">😈 罰ゲーム</button>
+                        <button class="preset-item" data-preset="lunch">🍽️ ランチ</button>
+                        <button class="preset-item" data-preset="yesno">⭕ YES / NO</button>
+                        <button class="preset-item" data-preset="lottery">🎯 当たりハズレ</button>
+                        <button class="preset-item" data-preset="janken">✊ じゃんけん</button>
+                        <button class="preset-item" data-preset="direction">🧭 方角</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 履歴モーダル -->
+        <div class="modal" id="modal-history">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>履歴</h3>
+                    <button class="modal-close" data-close="modal-history">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="history-list" id="history-list"></div>
+                    <button class="clear-history-btn" id="btn-clear-history">🗑 履歴をクリア</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast" id="toast"></div>
+    </div>
+
+    <script src="effects.js"></script>
+    <script src="audio.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
