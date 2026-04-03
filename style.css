@@ -2,41 +2,27 @@
    ルーレット - style.css
    ============================================================ */
 :root {
-    --bg: #0d0d1a;
-    --bg2: #161630;
-    --bg3: #1e1e40;
-    --bg4: #282850;
-    --text: #eeeef5;
-    --text2: #a0a0c0;
-    --text3: #6868a0;
-    --accent: #ff6b6b;
-    --accent2: #ffa94d;
-    --gold: #ffd700;
-    --border: rgba(255,255,255,0.07);
-    --r: 10px;
-    --r2: 14px;
-    --r3: 20px;
-    --shadow: 0 8px 32px rgba(0,0,0,0.4);
-    --font: 'Inter', sans-serif;
+  --bg-primary:#f8f9fb;--bg-secondary:#fff;--bg-tertiary:#f0f2f5;--text-primary:#1a1d23;--text-secondary:#5f6577;--text-tertiary:#9098a9;--border-color:#e2e5eb;
+  --accent:#ff6b6b;--accent-hover:#fa5252;--accent-light:#ffe3e3;--accent-dark:#e03131;--success:#2b8a3e;--warning:#ffa94d;--danger:#c92a2a;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow-md:0 4px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 32px rgba(0,0,0,.12);
+  --gold:#ffd700;--accent2:var(--warning);
+  --bg:var(--bg-primary);--bg2:var(--bg-secondary);--bg3:var(--bg-tertiary);--bg4:#e8e8f5;
+  --text:var(--text-primary);--text2:var(--text-secondary);--text3:var(--text-tertiary);
+  --border:var(--border-color);--r:10px;--r2:14px;--r3:20px;--shadow:var(--shadow-md);
+  --font:'Inter',sans-serif;
 }
-[data-theme="light"] {
-    --bg: #f4f4ff;
-    --bg2: #ffffff;
-    --bg3: #f0f0fa;
-    --bg4: #e8e8f5;
-    --text: #1a1a30;
-    --text2: #555580;
-    --text3: #8888aa;
-    --border: rgba(0,0,0,0.08);
-    --shadow: 0 8px 32px rgba(0,0,0,0.08);
+[data-theme="dark"] {
+  --bg-primary:#0f1117;--bg-secondary:#1a1d27;--bg-tertiary:#252833;--text-primary:#e8eaf0;--text-secondary:#9098a9;--text-tertiary:#5f6577;--border-color:#2e3240;
+  --bg4:#282850;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; transition: all 0.2s; }
 
-.header {
+.app-container { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; min-height: 100vh; }
+.app-header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 20px; background: var(--bg2); border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 50;
+    padding: 16px; background: var(--bg2); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 50; margin-bottom: -20px; /* mainのmargin-topを相殺 */
 }
 .header-left { display: flex; align-items: center; gap: 10px; }
 .logo { font-size: 1.5rem; }
@@ -53,7 +39,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); min-
 }
 .icon-btn:hover { background: var(--bg4); transform: scale(1.1); }
 
-.main { max-width: 500px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+.main { padding: 20px; display: flex; flex-direction: column; gap: 20px; flex: 1; }
 
 /* ---- Roulette ---- */
 .roulette-container {
